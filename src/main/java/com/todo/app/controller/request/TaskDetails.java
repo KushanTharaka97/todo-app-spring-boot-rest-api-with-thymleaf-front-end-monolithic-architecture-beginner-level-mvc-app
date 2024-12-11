@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskDetails {
-    private String titleOfTheTask;
-    private boolean completedStatus;
-    private LocalDateTime timeToComplete;
+  private String titleOfTheTask;
+  private boolean completedStatus;
+  private LocalDateTime timeToComplete;
 }

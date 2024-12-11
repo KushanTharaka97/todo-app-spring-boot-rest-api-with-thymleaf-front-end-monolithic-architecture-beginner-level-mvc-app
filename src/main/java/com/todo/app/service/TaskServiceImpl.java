@@ -4,15 +4,14 @@ import com.todo.app.controller.request.TaskDetails;
 import com.todo.app.exception.TaskNotFoundException;
 import com.todo.app.models.Task;
 import com.todo.app.repository.TaskRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.service.spi.ServiceException;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.service.spi.ServiceException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service

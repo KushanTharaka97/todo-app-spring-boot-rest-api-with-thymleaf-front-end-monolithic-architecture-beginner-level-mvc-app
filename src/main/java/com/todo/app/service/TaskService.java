@@ -8,50 +8,43 @@ import java.util.List;
 
 public interface TaskService {
 
-    /**
-     * @return
-     */
-    List<Task> getTaskList();
+  /**
+   * @return
+   */
+  List<Task> getTaskList();
 
-    /**
-     * @param localDateTime
-     * @return
-     */
+  /**
+   * @param localDateTime
+   * @return
+   */
+  List<Task> getTaskListByDate(LocalDateTime localDateTime);
 
-    List<Task> getTaskListByDate(LocalDateTime localDateTime);
+  /**
+   * @return
+   */
+  List<Task> getCompletedTask();
 
-    /**
-     * @return
-     */
+  /**
+   * @return
+   */
+  List<Task> getUnCompletedTask();
 
-    List<Task> getCompletedTask();
+  /**
+   * @param taskToUpdate
+   * @return
+   */
+  Task updateTaskDetails(Task taskToUpdate);
 
-    /**
-     * @return
-     */
+  /**
+   * @param taskId
+   */
+  void deleteTask(Long taskId);
 
-    List<Task> getUnCompletedTask();
+  /**
+   * @param taskDetails
+   * @return
+   */
+  Task saveTask(TaskDetails taskDetails);
 
-    /**
-     * @param taskToUpdate
-     * @return
-     */
-
-    Task updateTaskDetails(Task taskToUpdate);
-
-    /**
-     * @param taskId
-     */
-
-    void deleteTask(Long taskId);
-
-    /**
-     * @param taskDetails
-     * @return
-     */
-
-    Task saveTask(TaskDetails taskDetails);
-
-    Task findTaskById(Long taskId);
-
+  Task findTaskById(Long taskId);
 }
