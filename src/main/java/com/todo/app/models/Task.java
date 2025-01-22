@@ -9,15 +9,18 @@ import lombok.*;
 
 @Builder
 @Entity
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long taskId;
     private String titleOfTheTask;
     private boolean completedStatus;
     private LocalDateTime timeToComplete;
+
 }

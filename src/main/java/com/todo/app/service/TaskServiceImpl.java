@@ -1,5 +1,6 @@
 package com.todo.app.service;
 
+import com.todo.app.controller.TaskController;
 import com.todo.app.controller.request.TaskDetails;
 import com.todo.app.exception.TaskNotFoundException;
 import com.todo.app.models.Task;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
-
+    private static final Logger log = LoggerFactory.getLogger(TaskController.class);
     public TaskServiceImpl(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
