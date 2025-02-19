@@ -148,7 +148,7 @@ public class TaskServiceImpl implements TaskService {
 
 
         // Deletes the task
-        taskRepository.delete(taskToDelete); // Assuming taskService is injected
+//        taskRepository.delete(taskToDelete); // Assuming taskService is injected
 
         log.info("Task with ID {} deleted successfully", taskId);
     }

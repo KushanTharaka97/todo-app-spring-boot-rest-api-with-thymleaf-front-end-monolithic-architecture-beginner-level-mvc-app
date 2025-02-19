@@ -15,7 +15,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
   List<Task> findByTimeToComplete(LocalDateTime timeToComplete);
 
-  void delete(Optional<Task> taskToDelete);
+//  void delete(Optional<Task> taskToDelete);
 
   @Modifying
   @Query("UPDATE Task t SET t.titleOfTheTask = ?1 WHERE t.taskId = ?2")
