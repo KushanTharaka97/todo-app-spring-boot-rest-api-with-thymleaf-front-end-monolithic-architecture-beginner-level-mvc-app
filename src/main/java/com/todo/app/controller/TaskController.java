@@ -19,7 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@Controller
+@RestController
+@RequestMapping("/api")
 public class TaskController {
   private final TaskService taskService;
   private static final Logger log = LoggerFactory.getLogger(TaskController.class);

@@ -7,11 +7,10 @@ import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import lombok.*;
 
-@Builder
+//@Builder
 @Entity
 @Data
 @AllArgsConstructor
-@Getter
 @Setter
 @NoArgsConstructor
 public class Task {
@@ -23,4 +22,35 @@ public class Task {
     private boolean completedStatus;
     private LocalDateTime timeToComplete;
 
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public String getTitleOfTheTask() {
+        return titleOfTheTask;
+    }
+
+    public boolean isCompletedStatus() {
+        return completedStatus;
+    }
+
+    public LocalDateTime getTimeToComplete() {
+        return timeToComplete;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
+
+    public void setTitleOfTheTask(String titleOfTheTask) {
+        this.titleOfTheTask = titleOfTheTask;
+    }
+
+    public void setCompletedStatus(boolean completedStatus) {
+        this.completedStatus = completedStatus;
+    }
+
+    public void setTimeToComplete(LocalDateTime timeToComplete) {
+        this.timeToComplete = timeToComplete;
+    }
 }

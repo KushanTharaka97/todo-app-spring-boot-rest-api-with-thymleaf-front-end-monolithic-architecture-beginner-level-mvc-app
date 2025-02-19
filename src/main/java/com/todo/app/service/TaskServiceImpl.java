@@ -5,10 +5,6 @@ import com.todo.app.controller.request.TaskDetails;
 import com.todo.app.exception.TaskNotFoundException;
 import com.todo.app.models.Task;
 import com.todo.app.repository.TaskRepository;
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
@@ -16,11 +12,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Service
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private static final Logger log = LoggerFactory.getLogger(TaskController.class);
+
     public TaskServiceImpl(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
@@ -166,8 +168,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private Task mapperTaskDetailsToTask(TaskDetails taskDetails) {
-        Task exampleTask = Task.builder().titleOfTheTask(taskDetails.getTitleOfTheTask()).completedStatus(taskDetails.isCompletedStatus()).timeToComplete(taskDetails.getTimeToComplete()).build();
-        return exampleTask;
+        Task task = new Task();
+        task.setTitleOfTheTask(taskDetails.getTitleOfTheTask());
+        task.setCompletedStatus(taskDetails.isCompletedStatus());
+        task.setTimeToComplete(taskDetails.getTimeToComplete());
+        return task;
     }
 }
 
