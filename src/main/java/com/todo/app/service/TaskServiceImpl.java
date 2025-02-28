@@ -5,6 +5,7 @@ import com.todo.app.controller.request.TaskDetails;
 import com.todo.app.exception.TaskNotFoundException;
 import com.todo.app.models.Task;
 import com.todo.app.repository.TaskRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
@@ -135,23 +136,24 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
+@Override
+public void deleteTask(Long taskId) {
+    // Logs information about the method being called with task ID
+    log.info("Deleting task with ID: {}", taskId);
 
-    @Override
-    public void deleteTask(Long taskId) {
-        // Logs information about the method being called with task ID
-        log.info("Deleting task with ID: {}", taskId);
+    // Attempts to find the task by its ID
+    Optional<Task> taskToDelete = taskRepository.findById(taskId);
 
-        // Attempts to find the task by its ID
-        Optional<Task> taskToDelete = taskRepository.findById(taskId); // Assuming taskService is injected
-
-        // Checks if the task exists
-
-
+    // Checks if the task exists
+    if (taskToDelete.isPresent()) {
         // Deletes the task
-//        taskRepository.delete(taskToDelete); // Assuming taskService is injected
-
+        taskRepository.delete(taskToDelete.get());
         log.info("Task with ID {} deleted successfully", taskId);
+    } else {
+        log.warn("Task with ID {} not found", taskId);
+        throw new EntityNotFoundException("Task with ID " + taskId + " not found");
     }
+}
 
     @Override
     public Task saveTask(TaskDetails taskDetails) {
