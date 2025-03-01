@@ -8,86 +8,88 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api")
 public class TaskController {
-  private final TaskService taskService;
-  private static final Logger log = LoggerFactory.getLogger(TaskController.class);
-  public TaskController(TaskService taskService) {
-    this.taskService = taskService;
-  }
+    private final TaskService taskService;
+    private static final Logger log = LoggerFactory.getLogger(TaskController.class);
 
-  @Operation(summary = "This API is used to get calendar availability details of a resource")
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "success response",
-            content = @Content(mediaType = "application/json")),
-        @ApiResponse(
-            responseCode = "500",
-            description = "internal server error",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = Exception.class)))
-      })
-  @GetMapping("/list")
-  public ResponseEntity<List<Task>> getTasks() {
-    // Consider using debug level for this message
-    log.debug("Get tasks controller triggered");
-    List<Task> taskListGet = taskService.getTaskList();
-    if (taskListGet.isEmpty()) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
-    return new ResponseEntity<>(taskListGet, HttpStatus.OK);
-  }
 
-  @GetMapping("/completed")
-  public ResponseEntity<List<Task>> getCompletedTasks() {
-    List<Task> completedTasks = taskService.getCompletedTask();
-    return ResponseEntity.ok(completedTasks);
-  }
+    @Operation(summary = "This API is used to get calendar availability details of a resource")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "success response",
+                            content = @Content(mediaType = "application/json")),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "internal server error",
+                            content =
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Exception.class)))
+            })
+    @GetMapping("/list")
+    public ResponseEntity<List<Task>> getTasks() {
+        // Consider using debug level for this message
+        log.debug("Get tasks controller triggered");
+        List<Task> taskListGet = taskService.getTaskList();
+        if (taskListGet.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(taskListGet, HttpStatus.OK);
+    }
 
-  @GetMapping("/uncompleted")
-  public ResponseEntity<List<Task>> getUnCompletedTasks() {
-    List<Task> unCompletedTasks = taskService.getUnCompletedTask();
-    return ResponseEntity.ok(unCompletedTasks);
-  }
+    @GetMapping("/completed")
+    public ResponseEntity<List<Task>> getCompletedTasks() {
+        List<Task> completedTasks = taskService.getCompletedTask();
+        return ResponseEntity.ok(completedTasks);
+    }
 
-  @GetMapping("/{taskId}")
-  public ResponseEntity<Task> getTaskById(@PathVariable Long taskId) {
-    Task taskOptional = taskService.findTaskById(taskId);
-    return ResponseEntity.ok(taskOptional);
-  }
+    @GetMapping("/uncompleted")
+    public ResponseEntity<List<Task>> getUnCompletedTasks() {
+        List<Task> unCompletedTasks = taskService.getUnCompletedTask();
+        return ResponseEntity.ok(unCompletedTasks);
+    }
 
-  @PostMapping
-  public ResponseEntity<Task> saveTask(@RequestBody TaskDetails taskDetails) {
-    Task savedTask = taskService.saveTask(taskDetails);
-    return ResponseEntity.ok(savedTask);
-  }
+    @GetMapping("/{taskId}")
+    public ResponseEntity<Task> getTaskById(@PathVariable Long taskId) {
+        Task taskOptional = taskService.findTaskById(taskId);
+        return ResponseEntity.ok(taskOptional);
+    }
 
-  @PutMapping("/{taskId}")
-  public ResponseEntity<Task> updateTask(
-      @PathVariable Long taskId, @RequestBody Task taskToUpdate) {
+    @PostMapping
+    public ResponseEntity<Task> saveTask(@RequestBody TaskDetails taskDetails) {
+        Task savedTask = taskService.saveTask(taskDetails);
+        return ResponseEntity.ok(savedTask);
+    }
+
+    @PutMapping("/{taskId}")
+    public ResponseEntity<Task> updateTask(
+            @PathVariable Long taskId, @RequestBody Task taskToUpdate) {
 //    taskToUpdate.setTaskId(taskId);// Set ID based on path variable
-    Task updatedTask = taskService.updateTaskDetails(taskToUpdate);
-    return ResponseEntity.ok(updatedTask);
-  }
+        Task updatedTask = taskService.updateTaskDetails(taskToUpdate);
+        return ResponseEntity.ok(updatedTask);
+    }
 
-  @DeleteMapping("/{taskId}")
-  public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
-    taskService.deleteTask(taskId);
-    return ResponseEntity.noContent().build(); // Use build() for successful deletions
-  }
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
+        taskService.deleteTask(taskId);
+        return ResponseEntity.noContent().build(); // Use build() for successful deletions
+    }
 }

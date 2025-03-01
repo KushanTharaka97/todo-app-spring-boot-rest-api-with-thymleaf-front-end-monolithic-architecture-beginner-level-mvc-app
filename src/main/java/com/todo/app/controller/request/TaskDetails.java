@@ -12,7 +12,32 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskDetails {
-  private String titleOfTheTask;
-  private boolean completedStatus;
-  private LocalDateTime timeToComplete;
+    private String titleOfTheTask;
+
+    public String getTitleOfTheTask() {
+        return titleOfTheTask;
+    }
+
+    public void setTitleOfTheTask(String titleOfTheTask) {
+        this.titleOfTheTask = titleOfTheTask;
+    }
+
+    public boolean isCompletedStatus() {
+        return completedStatus;
+    }
+
+    public void setCompletedStatus(boolean completedStatus) {
+        this.completedStatus = completedStatus;
+    }
+
+    public LocalDateTime getTimeToComplete() {
+        return timeToComplete;
+    }
+
+    public void setTimeToComplete(LocalDateTime timeToComplete) {
+        this.timeToComplete = timeToComplete;
+    }
+
+    private boolean completedStatus;
+    private LocalDateTime timeToComplete;
 }
