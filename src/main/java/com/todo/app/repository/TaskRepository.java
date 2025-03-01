@@ -8,23 +8,20 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-  List<Task> findByTimeToComplete(LocalDateTime timeToComplete);
+    List<Task> findByTimeToComplete(LocalDateTime timeToComplete);
 
-//  void delete(Optional<Task> taskToDelete);
+    @Modifying
+    @Query("UPDATE Task t SET t.titleOfTheTask = ?1 WHERE t.taskId = ?2")
+    int setTitleOfTheTask(String title, Long taskId);
 
-  @Modifying
-  @Query("UPDATE Task t SET t.titleOfTheTask = ?1 WHERE t.taskId = ?2")
-  int setTitleOfTheTask(String title, Long taskId);
+    // Assuming you have a field named 'timeToComplete' in your Task entity
+    @Modifying
+    @Query("UPDATE Task t SET t.timeToComplete = ?1 WHERE t.taskId = ?2")
+    int setTimeToComplete(LocalDateTime timeToComplete, Long taskId);
 
-  // Assuming you have a field named 'timeToComplete' in your Task entity
-  @Modifying
-  @Query("UPDATE Task t SET t.timeToComplete = ?1 WHERE t.taskId = ?2")
-  int setTimeToComplete(LocalDateTime timeToComplete, Long taskId);
-
-  List<Task> findByCompletedStatus(boolean completedStatus);
+    List<Task> findByCompletedStatus(boolean completedStatus);
 }

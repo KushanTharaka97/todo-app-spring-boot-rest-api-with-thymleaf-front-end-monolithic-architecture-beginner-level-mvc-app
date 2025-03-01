@@ -38,9 +38,6 @@ public class Task {
         return timeToComplete;
     }
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
-    }
 
     public void setTitleOfTheTask(String titleOfTheTask) {
         this.titleOfTheTask = titleOfTheTask;

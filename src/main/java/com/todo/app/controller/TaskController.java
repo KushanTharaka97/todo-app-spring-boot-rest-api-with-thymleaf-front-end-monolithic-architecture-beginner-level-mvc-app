@@ -73,7 +73,7 @@ public class TaskController {
         return ResponseEntity.ok(taskOptional);
     }
 
-    @PostMapping
+    @PostMapping("/add-task")
     public ResponseEntity<Task> saveTask(@RequestBody TaskDetails taskDetails) {
         Task savedTask = taskService.saveTask(taskDetails);
         return ResponseEntity.ok(savedTask);
